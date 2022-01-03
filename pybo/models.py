@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Question(models.Model):
@@ -13,6 +13,9 @@ class Question(models.Model):
     create_date = models.DateTimeField(
         help_text="질문 작성 일시"
     )
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    modify_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.subject
@@ -28,4 +31,11 @@ class Answer(models.Model):
     )
     create_date = models.DateTimeField(
         help_text="답변 일시"
+    )
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+    )
+    modify_date = models.DateTimeField(
+        null=True,
+        blank=True,
     )
